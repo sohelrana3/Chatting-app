@@ -1,4 +1,59 @@
-*{
-  padding: 0;
-  margin: 0;
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: "Nunito", sans-serif;
+}
+/* ----------------Register pages---------------- */
+.regimg {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+.regleft {
+    width: 90%;
+    margin-left: auto;
+    margin-top: 80px;
+}
+.regheadding {
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 36px;
+    color: #11175d;
+    margin-bottom: 13px;
+}
+.regleft p {
+    font-size: 20px;
+    font-weight: 400;
+}
+.regInput {
+    width: 100%;
+    margin-top: 56px;
+}
+.regInput .MuiTextField-root {
+    width: 75%;
+}
+.regbutton {
+    width: 75%;
+    background-color: #5f35f5;
+    text-align: center;
+    border-radius: 86px;
+    margin: 51px 0 35px 0;
+}
+.regbutton .MuiButton-text {
+    color: #ffff;
+    padding: 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+   
+}
+.rgbspan{
+  font-size: 13px;
+  font-weight: 700;
+  color: #03014C;
+}
+.rgbspan .reglink{
+  color: #EA6C00;
+  text-decoration: none;
 }
