@@ -18,7 +18,9 @@ const Login = () => {
                         title="Login to your account!"
                     />
                     <div>
-                        <img className="logingoogle" src={google} />
+                        <Link>
+                            <img className="logingoogle" src={google} />
+                        </Link>
                     </div>
                     <div className="loginInput">
                         <TextField
