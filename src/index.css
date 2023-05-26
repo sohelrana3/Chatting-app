@@ -57,3 +57,13 @@ body {
   color: #EA6C00;
   text-decoration: none;
 }
+/* ----------------Login pages---------------- */
+.logingoogle{
+  margin-top: 29px;
+}
+.loginInput{
+margin-top: 32px;
+}
+.loginInput .MuiTextField-root {
+  width: 75%;
+}
