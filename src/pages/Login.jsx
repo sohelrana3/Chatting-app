@@ -12,7 +12,7 @@ import images from "../assets/login.png";
 import google from "../assets/google.png";
 // components
 import RegisterHeadding from "../components/RegisterHeadding";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //
 let inishalvalue = {
@@ -24,6 +24,7 @@ let inishalvalue = {
 
 const Login = () => {
     const auth = getAuth();
+    let navigate = useNavigate();
     const provider = new GoogleAuthProvider();
     let [value, setvalue] = useState(inishalvalue);
 
@@ -58,6 +59,7 @@ const Login = () => {
                     email: "",
                     password: "",
                 })
+                navigate("/RootLayouts")
                 console.log(user);
             })
             .catch((error) => {

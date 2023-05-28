@@ -8,6 +8,7 @@ import {
 // import pages
 import Register from './pages/Register';
 import Login from './pages/Login';
+import RootLayouts from './components/RootLayouts';
 import Home from './pages/Home';
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
       <Route>
         <Route path='/' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/home' element={<Home />}></Route>
+        <Route path='/RootLayouts' element={<RootLayouts />}>
+          <Route index element={<Home />}></Route>
+        </Route>
       </Route>
     )
   );

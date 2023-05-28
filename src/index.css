@@ -75,3 +75,10 @@ margin-top: 32px;
 .loginInput .MuiTextField-root {
   width: 75%;
 }
+/* ----------------Rootlayouts pages---------------- */
+.Rootleft {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color: #2a05cf;
+}
