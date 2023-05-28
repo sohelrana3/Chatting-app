@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+} from "firebase/auth";
 // material
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid, TextField, Button, Alert } from "@mui/material";
 // images input
 import images from "../assets/login.png";
 import google from "../assets/google.png";
@@ -8,7 +14,66 @@ import google from "../assets/google.png";
 import RegisterHeadding from "../components/RegisterHeadding";
 import { Link } from "react-router-dom";
 
+//
+let inishalvalue = {
+    email: "",
+    password: "",
+    error: "",
+    errorpass: "",
+};
+
 const Login = () => {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    let [value, setvalue] = useState(inishalvalue);
+
+    //handlevalues
+    let handlevalues = (e) => {
+        setvalue({
+            ...value,
+            [e.target.name]: e.target.value,
+        });
+    };
+    //handlesing
+    let handlesing = () => {
+        let { email, password } = value;
+        if (!email) {
+            setvalue({
+                ...value,
+                error: "Please Your email",
+            });
+            return;
+        }
+        if (!password) {
+            setvalue({
+                ...value,
+                error: "Please Your password",
+            });
+            return;
+        }
+        signInWithEmailAndPassword(auth, email, password)
+            .then((user) => {
+                setvalue({
+                    error: "",
+                    email: "",
+                    password: "",
+                })
+                console.log(user);
+            })
+            .catch((error) => {
+                setvalue({
+                    error: "email or password not march"
+                })
+                console.log("errr");
+            });
+    };
+    //handleGoogle
+    let handleGoogle = () => {
+        signInWithPopup(auth, provider).then((result) => {
+            console.log(result);
+        });
+    };
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -19,7 +84,11 @@ const Login = () => {
                     />
                     <div>
                         <Link>
-                            <img className="logingoogle" src={google} />
+                            <img
+                                onClick={handleGoogle}
+                                className="logingoogle"
+                                src={google}
+                            />
                         </Link>
                     </div>
                     <div className="loginInput">
@@ -27,18 +96,33 @@ const Login = () => {
                             id="standard-basic"
                             label="Email Addres"
                             variant="standard"
+                            value={value.email}
+                            name="email"
+                            onChange={handlevalues}
                         />
+                        {value.error.includes("email") && (
+                            <div className="regalert">
+                                <Alert severity="error">{value.error}</Alert>
+                            </div>
+                        )}
                     </div>
                     <div className="loginInput">
                         <TextField
                             id="standard-basic"
                             label="Password"
                             variant="standard"
+                            name="password"
+                            value={value.password}
                             type="password"
+                            onChange={handlevalues}
                         />
+                        {value.error.includes("password") && (
+                            <div className="regalert">
+                                <Alert severity="error">{value.error}</Alert>
+                            </div>
+                        )}
                     </div>
-
-                    <div className="regbutton">
+                    <div onClick={handlesing} className="regbutton">
                         <Button variant="text">Login to Continue</Button>
                     </div>
                     <div>

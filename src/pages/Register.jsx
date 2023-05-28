@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 // firebase
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+} from "firebase/auth";
 // material
 import { Grid, TextField, Button, Alert } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -20,7 +24,7 @@ let inishalvalue = {
 const Register = () => {
     const auth = getAuth();
     let [value, setvalue] = useState(inishalvalue);
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
     //handlevalus
     let handlevalus = (e) => {
@@ -52,26 +56,27 @@ const Register = () => {
                 error: "Please Your password",
             });
             return;
-            
         }
         setvalue({
             ...value,
             loadding: false,
-        })
-      
+        });
+
         console.log("ddddddd");
         createUserWithEmailAndPassword(auth, email, password).then((user) => {
-            navigate('/login')
+            sendEmailVerification(auth.currentUser).then(() => {
+                // Email verification sent!
+                console.log("Email verification sent!");
+            });
+            navigate("/login");
             setvalue({
                 email: "",
                 name: "",
                 password: "",
                 error: "",
                 loadding: true,
-                
-            })
+            });
         });
-       
     };
     return (
         <Grid container spacing={2}>
@@ -141,7 +146,6 @@ const Register = () => {
                             >
                                 Submit
                             </LoadingButton>
-                            
                         )}
                     </div>
                     <div>
