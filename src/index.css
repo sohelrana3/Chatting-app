@@ -57,6 +57,14 @@ body {
   color: #EA6C00;
   text-decoration: none;
 }
+.regalert{
+    width: 75%;
+}
+
+.regload{
+    color: #ffff;
+}
+
 /* ----------------Login pages---------------- */
 .logingoogle{
   margin-top: 29px;

@@ -34,6 +34,7 @@ const Login = () => {
                             id="standard-basic"
                             label="Password"
                             variant="standard"
+                            type="password"
                         />
                     </div>
 
