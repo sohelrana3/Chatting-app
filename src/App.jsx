@@ -8,6 +8,7 @@ import {
 // import pages
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Home from './pages/Home';
 
 function App() {
   const router = createBrowserRouter(
@@ -15,6 +16,7 @@ function App() {
       <Route>
         <Route path='/' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
+        <Route path='/home' element={<Home />}></Route>
       </Route>
     )
   );
