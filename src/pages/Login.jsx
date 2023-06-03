@@ -59,7 +59,7 @@ const Login = () => {
                     email: "",
                     password: "",
                 })
-                navigate("/RootLayouts")
+                navigate("/bachal/home")
                 console.log(user);
             })
             .catch((error) => {

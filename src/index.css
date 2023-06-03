@@ -5,6 +5,9 @@
 body {
     font-family: "Nunito", sans-serif;
 }
+ul, ol{
+    list-style: none;
+}
 /* ----------------Register pages---------------- */
 .regimg {
     width: 100%;
@@ -46,39 +49,53 @@ body {
     padding: 20px 0;
     font-size: 20px;
     font-weight: 600;
-   
 }
-.rgbspan{
-  font-size: 13px;
-  font-weight: 700;
-  color: #03014C;
+.rgbspan {
+    font-size: 13px;
+    font-weight: 700;
+    color: #03014c;
 }
-.rgbspan .reglink{
-  color: #EA6C00;
-  text-decoration: none;
+.rgbspan .reglink {
+    color: #ea6c00;
+    text-decoration: none;
 }
-.regalert{
+.regalert {
     width: 75%;
 }
 
-.regload{
+.regload {
     color: #ffff;
 }
 
 /* ----------------Login pages---------------- */
-.logingoogle{
-  margin-top: 29px;
+.logingoogle {
+    margin-top: 29px;
 }
-.loginInput{
-margin-top: 32px;
+.loginInput {
+    margin-top: 32px;
 }
 .loginInput .MuiTextField-root {
-  width: 75%;
+    width: 75%;
 }
 /* ----------------Rootlayouts pages---------------- */
-.Rootleft {
+.navcontant{
     width: 100%;
     height: 100vh;
-    position: fixed;
-    background-color: #2a05cf;
+    background: #5F35F5;
+    border-radius: 20px;
+ 
+}
+.navbar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.profile {
+ margin-top: 20px;
+ width: 50px;
+ height: 50px;
+ border-radius: 50%;
 }
