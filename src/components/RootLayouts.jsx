@@ -1,16 +1,27 @@
 import React from "react";
-import Avatar from "@mui/material/Avatar";
+import { getAuth, signOut } from "firebase/auth";
 import Grid from "@mui/material/Grid";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AiFillHome, AiOutlineSetting } from "react-icons/ai";
-import{IoIosNotificationsOutline} from "react-icons/io";
-import{BsChatDots} from "react-icons/bs";
-import{BiLogIn} from "react-icons/bi";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { BsChatDots } from "react-icons/bs";
+import { BiLogIn } from "react-icons/bi";
 import profile from "../assets/login.png";
 
 const RootLayouts = () => {
+    const auth = getAuth();
     const location = useLocation();
-    console.log(location.pathname);
+    const navigate = useNavigate();
+
+    let habdleLogouts = () => {
+        signOut(auth)
+            .then(() => {
+                navigate("/login")
+            })
+            .catch((error) => {
+                // An error happened.
+            });
+    };
 
     return (
         <Grid container spacing={2}>
@@ -34,7 +45,8 @@ const RootLayouts = () => {
                                 <Link to="/bachal/massges">
                                     <BsChatDots
                                         className={
-                                            location.pathname == "/bachal/massges"
+                                            location.pathname ==
+                                            "/bachal/massges"
                                                 ? "active"
                                                 : "icon"
                                         }
@@ -45,7 +57,8 @@ const RootLayouts = () => {
                                 <Link to="/bachal/Notification">
                                     <IoIosNotificationsOutline
                                         className={
-                                            location.pathname == "/bachal/Notification"
+                                            location.pathname ==
+                                            "/bachal/Notification"
                                                 ? "active"
                                                 : "icon"
                                         }
@@ -56,7 +69,8 @@ const RootLayouts = () => {
                                 <Link to="/bachal/settinge">
                                     <AiOutlineSetting
                                         className={
-                                            location.pathname == "/bachal/settinge"
+                                            location.pathname ==
+                                            "/bachal/settinge"
                                                 ? "active"
                                                 : "icon"
                                         }
@@ -64,13 +78,10 @@ const RootLayouts = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/bachal/home">
+                                <Link to="#">
                                     <BiLogIn
-                                        className={
-                                            location.pathname == "/bachal/home"
-                                                ? "active"
-                                                : "icon"
-                                        }
+                                        onClick={habdleLogouts}
+                                        className="icon"
                                     />
                                 </Link>
                             </li>
