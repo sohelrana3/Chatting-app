@@ -11,6 +11,8 @@ import Login from './pages/Login';
 import RootLayouts from './components/RootLayouts';
 import Home from './pages/Home';
 import Massges from './pages/Massges';
+import Notification from './pages/Notification';
+import Settinge from './pages/Settinge';
 
 function App() {
   const router = createBrowserRouter(
@@ -21,6 +23,8 @@ function App() {
         <Route path='/bachal' element={<RootLayouts />}>
           <Route path='home' element={<Home />}></Route>
           <Route path='massges' element={<Massges />}></Route>
+          <Route path='Notification' element={<Notification />}></Route>
+          <Route path='settinge' element={<Settinge />}></Route>
         </Route>
       </Route>
     )
