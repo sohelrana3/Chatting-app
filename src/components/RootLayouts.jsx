@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import Grid from "@mui/material/Grid";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -7,15 +7,23 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsChatDots } from "react-icons/bs";
 import { BiLogIn } from "react-icons/bi";
 import profile from "../assets/login.png";
+import { useSelector, useDispatch } from 'react-redux'
 
 const RootLayouts = () => {
     const auth = getAuth();
     const location = useLocation();
     const navigate = useNavigate();
-
+    let loggin = useSelector((state)=> state.loggedUser.LoginUser)
+    useEffect(()=>{
+        if(loggin == null){
+            navigate("/login")
+        }
+        console.log(loggin.displayName);
+    },[])
     let habdleLogouts = () => {
         signOut(auth)
             .then(() => {
+                localStorage.removeItem("user")
                 navigate("/login")
             })
             .catch((error) => {
@@ -29,6 +37,7 @@ const RootLayouts = () => {
                 <div className="navcontant">
                     <div className="navbar">
                         <img className="profile" src={profile} alt="Profile" />
+                        <h2>{loggin.displayName}</h2>
                         <ul>
                             <li>
                                 <Link to="/bachal/home">

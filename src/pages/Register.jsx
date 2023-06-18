@@ -4,7 +4,9 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     sendEmailVerification,
+    updateProfile,
 } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 // material
 import { Grid, TextField, Button, Alert } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -23,6 +25,7 @@ let inishalvalue = {
 };
 const Register = () => {
     const auth = getAuth();
+    const db = getDatabase();
     let [value, setvalue] = useState(inishalvalue);
     let navigate = useNavigate();
 
@@ -62,19 +65,31 @@ const Register = () => {
             loadding: false,
         });
 
-        console.log("ddddddd");
         createUserWithEmailAndPassword(auth, email, password).then((user) => {
-            sendEmailVerification(auth.currentUser).then(() => {
-                // Email verification sent!
-                console.log("Email verification sent!");
-            });
-            navigate("/login");
-            setvalue({
-                email: "",
-                name: "",
-                password: "",
-                error: "",
-                loadding: true,
+            updateProfile(auth.currentUser, {
+                displayName: value.name,
+                photoURL: "https://i.ibb.co/Y2tzvqC/download.png",
+            }).then(() => {
+                // Profile updated!
+                // ...
+                sendEmailVerification(auth.currentUser).then(() => {
+                    // Email verification sent!
+                    console.log("Email verification sent!");
+                    console.log(user);
+                    set(ref(db, 'users/' + user.user.uid), {
+                        username: value.name,
+                        email: value.email,
+                        profile_picture : user.user.photoURL
+                      });
+                });
+                navigate("/login");
+                setvalue({
+                    email: "",
+                    name: "",
+                    password: "",
+                    error: "",
+                    loadding: true,
+                });
             });
         });
     };
@@ -110,6 +125,7 @@ const Register = () => {
                             value={value.name}
                             name="name"
                             onChange={handlevalus}
+                            type="text"
                         />
                         {value.error.includes("name") && (
                             <div className="regalert">

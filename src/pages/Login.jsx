@@ -13,6 +13,9 @@ import google from "../assets/google.png";
 // components
 import RegisterHeadding from "../components/RegisterHeadding";
 import { Link, useNavigate } from "react-router-dom";
+// react-redux
+import { useSelector, useDispatch } from 'react-redux'
+import {userdata} from "../slice/user/userSlice"
 
 //
 let inishalvalue = {
@@ -25,6 +28,7 @@ let inishalvalue = {
 const Login = () => {
     const auth = getAuth();
     let navigate = useNavigate();
+    let dispatch = useDispatch();
     const provider = new GoogleAuthProvider();
     let [value, setvalue] = useState(inishalvalue);
 
@@ -59,6 +63,8 @@ const Login = () => {
                     email: "",
                     password: "",
                 })
+                localStorage.setItem("user", JSON.stringify(user.user))
+                dispatch(userdata(user.user))
                 navigate("/bachal/home")
                 console.log(user);
             })

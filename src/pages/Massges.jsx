@@ -1,9 +1,29 @@
-import React from 'react'
+import React from "react";
 
 const Massges = () => {
-  return (
-    <div>Massges</div>
-  )
-}
+    // const count = useSelector((state) => state.counter.value);
+    // const dispatch = useDispatch();
 
-export default Massges
+    return (
+      <div>hello</div>
+        // <div>
+        //     <div>
+        //         <button
+        //             aria-label="Increment value"
+        //             onClick={() => dispatch(increment())}
+        //         >
+        //             Increment
+        //         </button>
+        //         <span>{count}</span>
+        //         <button
+        //             aria-label="Decrement value"
+        //             onClick={() => dispatch(decrement())}
+        //         >
+        //             Decrement
+        //         </button>
+        //     </div>
+        // </div>
+    );
+};
+
+export default Massges;
