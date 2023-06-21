@@ -14,8 +14,8 @@ import google from "../assets/google.png";
 import RegisterHeadding from "../components/RegisterHeadding";
 import { Link, useNavigate } from "react-router-dom";
 // react-redux
-import { useSelector, useDispatch } from 'react-redux'
-import {userdata} from "../slice/user/userSlice"
+import { useSelector, useDispatch } from "react-redux";
+import { userdata } from "../slice/user/userSlice";
 
 //
 let inishalvalue = {
@@ -62,16 +62,16 @@ const Login = () => {
                     error: "",
                     email: "",
                     password: "",
-                })
-                localStorage.setItem("user", JSON.stringify(user.user))
-                dispatch(userdata(user.user))
-                navigate("/bachal/home")
+                });
+                localStorage.setItem("user", JSON.stringify(user.user));
+                dispatch(userdata(user.user));
+                navigate("/bachal/home");
                 console.log(user);
             })
             .catch((error) => {
                 setvalue({
-                    error: "email or password not march"
-                })
+                    error: "email or password not march",
+                });
                 console.log("errr");
             });
     };
@@ -132,6 +132,9 @@ const Login = () => {
                     </div>
                     <div onClick={handlesing} className="regbutton">
                         <Button variant="text">Login to Continue</Button>
+                    </div>
+                    <div>
+                        <Link to="/foregetpassword">Forget Password</Link>
                     </div>
                     <div>
                         <span className="rgbspan">
