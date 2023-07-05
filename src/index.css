@@ -78,6 +78,27 @@ ol {
 .loginInput .MuiTextField-root {
     width: 75%;
 }
+.forget {
+    background: #11175d;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.forgetbody{
+    background-color: #fff;
+    padding: 30px;
+}
+.forgetbody h6 {
+    margin-bottom: 20px;
+}
+#outlined-basic{
+    width: 100%;
+}
+.forbutton{
+    margin-top: 20px;
+}
 /* ----------------Rootlayouts pages---------------- */
 .navcontant {
     width: 100%;
@@ -129,7 +150,6 @@ ol {
     display: flex;
     margin: 20px 0;
     justify-content: space-between;
-   
 }
 .list img {
     width: 50px;
