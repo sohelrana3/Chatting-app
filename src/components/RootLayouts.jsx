@@ -37,7 +37,7 @@ const RootLayouts = () => {
                 <div className="navcontant">
                     <div className="navbar">
                         <img className="profile" src={profile} alt="Profile" />
-                        <h2>{loggin.displayName}</h2>
+                        <h2 className="profileName">{loggin.displayName}</h2>
                         <ul>
                             <li>
                                 <Link to="/bachal/home">

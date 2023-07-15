@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import images from "./../assets/login.png";
 import { getDatabase, ref, onValue } from "firebase/database";
-import {
-    getAuth,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import { useSelector } from "react-redux";
 
 const UserList = () => {
     const db = getDatabase();
     const auth = getAuth();
+    let users = useSelector((state) => state.loggedUser.LoginUser);
     let [userdata, setuserdata] = useState([]);
 
     useEffect(() => {
@@ -16,16 +16,18 @@ const UserList = () => {
         onValue(starCountRef, (snapshot) => {
             let arr = [];
             snapshot.forEach((item) => {
-                arr.push({ ...item.val(), id: item.key });
-                setuserdata(arr);
+                if (users.uid != item.key) {
+                    arr.push({ ...item.val(), id: item.key });
+                    setuserdata(arr);
+                }
             });
         });
     }, []);
 
     //handleFriendReq
     let handleFriendReq = (item) => {
-        console.log(item.id);
-        console.log("key",auth.currentUser.uid);
+        console.log(item.username);
+       
     };
     return (
         <div className="box">
