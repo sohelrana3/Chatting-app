@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import images from "./../assets/login.png";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { useSelector } from "react-redux";
 
 const UserList = () => {
     const db = getDatabase();
     const auth = getAuth();
+    let [FriendReq, setFriendReq] = useState([]);
+    let [Friend, setFriend] = useState([]);
     let users = useSelector((state) => state.loggedUser.LoginUser);
     let [userdata, setuserdata] = useState([]);
 
@@ -24,10 +26,44 @@ const UserList = () => {
         });
     }, []);
 
+    // friendRequest
+    useEffect(() => {
+        const friendRequestRef = ref(db, "FriendReq/");
+        onValue(friendRequestRef, (snapshot) => {
+            let arr = [];
+            snapshot.forEach((item) => {
+                // arr.push(item.val())
+                arr.push(item.val().whoreceiveid + item.val().whosendid);
+            });
+            setFriendReq(arr);
+        });
+    }, []);
+    // friend
+    useEffect(() => {
+        const friendRequestRef = ref(db, "Friend/");
+        onValue(friendRequestRef, (snapshot) => {
+            let arr = [];
+            snapshot.forEach((item) => {
+                // arr.push(item.val())
+                arr.push(item.val().whoreceiveid + item.val().whosendid);
+            });
+            setFriend(arr);
+        });
+    }, []);
+
     //handleFriendReq
     let handleFriendReq = (item) => {
-        console.log(item.username);
-       
+        console.log(item);
+        set(ref(db, "FriendReq/" + item.id), {
+            whosendid: auth.currentUser.uid,
+            whosendname: auth.currentUser.displayName,
+            whoreceiveid: item.id,
+            whoreceivename: item.username,
+        });
+    };
+    //handleCancel
+    let handleCancel = (item) => {
+        remove(ref(db, "FriendReq/" + item.id));
     };
     return (
         <div className="box">
@@ -42,13 +78,36 @@ const UserList = () => {
                         <p>Hi Guys, Wassup</p>
                     </div>
                     <div className="button">
-                        <Button
-                            onClick={() => handleFriendReq(item)}
-                            variant="contained"
-                            size="small"
-                        >
-                            +
-                        </Button>
+                        {FriendReq.includes(item.id + auth.currentUser.uid) ? (
+                            <Button
+                                onClick={() => handleCancel(item)}
+                                size="small"
+                                variant="contained"
+                            >
+                                Cancel
+                            </Button>
+                        ) : FriendReq.includes(
+                              auth.currentUser.uid + item.id
+                          ) ? (
+                            <Button size="small" variant="contained">
+                                pending
+                            </Button>
+                        ) : Friend.includes(
+                              auth.currentUser.uid + item.id ||
+                                  item.id + auth.currentUser.uid
+                          ) ? (
+                            <Button size="small" variant="contained" color="success">
+                                friend
+                            </Button>
+                        ) : (
+                            <Button
+                                onClick={() => handleFriendReq(item)}
+                                variant="contained"
+                                size="small"
+                            >
+                                +
+                            </Button>
+                        )}
                     </div>
                 </div>
             ))}

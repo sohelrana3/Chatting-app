@@ -66,19 +66,19 @@ const Login = () => {
                 localStorage.setItem("user", JSON.stringify(user.user));
                 dispatch(userdata(user.user));
                 navigate("/bachal/home");
-                console.log(user);
+        
             })
             .catch((error) => {
                 setvalue({
                     error: "email or password not march",
                 });
-                console.log("errr");
+
             });
     };
     //handleGoogle
     let handleGoogle = () => {
         signInWithPopup(auth, provider).then((result) => {
-            console.log(result);
+
         });
     };
 
