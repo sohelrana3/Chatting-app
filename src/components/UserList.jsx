@@ -96,7 +96,11 @@ const UserList = () => {
                               auth.currentUser.uid + item.id ||
                                   item.id + auth.currentUser.uid
                           ) ? (
-                            <Button size="small" variant="contained" color="success">
+                            <Button
+                                size="small"
+                                variant="contained"
+                                color="success"
+                            >
                                 friend
                             </Button>
                         ) : (
