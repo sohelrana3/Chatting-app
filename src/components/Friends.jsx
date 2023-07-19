@@ -33,7 +33,6 @@ const Friends = () => {
     }, []);
     //handleUnfriend button
     let handleUnfriend = (item) => {
-        console.log(item);
         remove(ref(db, "Friend/" + item.id));
     };
     //handleBlock buton
