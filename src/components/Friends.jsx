@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import images from "./../assets/login.png";
-import { getDatabase, ref, set, onValue, remove } from "firebase/database";
+import {
+    getDatabase,
+    ref,
+    set,
+    onValue,
+    remove,
+    push,
+} from "firebase/database";
 import { useSelector } from "react-redux";
 const Friends = () => {
     const db = getDatabase();
@@ -25,10 +32,33 @@ const Friends = () => {
         });
     }, []);
     //handleUnfriend button
-    let handleUnfriend = (item)=> {
+    let handleUnfriend = (item) => {
         console.log(item);
         remove(ref(db, "Friend/" + item.id));
-    }
+    };
+    //handleBlock buton
+    let handleBlock = (item) => {
+        console.log(users.uid);
+        if (users.uid == item.whoreceiveid) {
+            set(push(ref(db, "Block/")), {
+                blockedname: item.whosendname,
+                blockedid: item.whosendid,
+                blockbyid: item.whoreceiveid,
+                blockbyname: item.whoreceivename,
+            }).then(() => {
+                remove(ref(db, "Friend/" + item.id));
+            });
+        } else {
+            set(push(ref(db, "Block/")), {
+                blockedname: item.whoreceivename,
+                blockedid: item.whoreceiveid,
+                blockbyid: item.whosendid,
+                blockbyname: item.whosendname,
+            }).then(() => {
+                remove(ref(db, "Friend/" + item.id));
+            });
+        }
+    };
     return (
         <div className="box">
             <h3>Friends</h3>
@@ -46,10 +76,19 @@ const Friends = () => {
                         <p>Hi Guys, Wassup</p>
                     </div>
                     <div className="button">
-                        <Button variant="contained" size="small">
+                        <Button
+                            onClick={() => handleBlock(item)}
+                            variant="contained"
+                            size="small"
+                        >
                             Block
                         </Button>
-                        <Button onClick={()=> handleUnfriend(item)} variant="contained" size="small" color="error">
+                        <Button
+                            onClick={() => handleUnfriend(item)}
+                            variant="contained"
+                            size="small"
+                            color="error"
+                        >
                             Unfriend
                         </Button>
                     </div>
