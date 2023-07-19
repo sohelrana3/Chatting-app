@@ -5,7 +5,12 @@ import images from "./../assets/login.png";
 const MyGroup = () => {
     return (
         <div className="box">
-            <h3>MyGroup</h3>
+            <div className="grouptop">
+                <h3>My Group</h3>
+                <Button variant="contained" size="small">
+                    Create Group
+                </Button>
+            </div>
             <div className="list">
                 <div className="img">
                     <img src={images} alt="img" />

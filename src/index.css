@@ -161,3 +161,8 @@ ol {
     height: 50px;
     border-radius: 50%;
 }
+
+.grouptop{
+    display: flex;
+    justify-content: space-between;
+}
