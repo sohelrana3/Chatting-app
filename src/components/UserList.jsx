@@ -10,6 +10,7 @@ const UserList = () => {
     const auth = getAuth();
     let [FriendReq, setFriendReq] = useState([]);
     let [Friend, setFriend] = useState([]);
+    let [block, setblock] = useState([]);
     let users = useSelector((state) => state.loggedUser.LoginUser);
     let [userdata, setuserdata] = useState([]);
 
@@ -48,6 +49,19 @@ const UserList = () => {
                 arr.push(item.val().whoreceiveid + item.val().whosendid);
             });
             setFriend(arr);
+        });
+    }, []);
+    // setblock
+    useEffect(() => {
+        const blockRef = ref(db, "Block/");
+        onValue(blockRef, (snapshot) => {
+            let arr = [];
+            snapshot.forEach((item) => {
+                // arr.push(item.val())
+                arr.push(item.val().blockbyid + item.val().blockedid );
+                
+            });
+            setblock(arr);
         });
     }, []);
 
@@ -92,16 +106,23 @@ const UserList = () => {
                             <Button size="small" variant="contained">
                                 pending
                             </Button>
-                        ) : Friend.includes(
-                              auth.currentUser.uid + item.id ||
-                                  item.id + auth.currentUser.uid
-                          ) ? (
+                        ) : Friend.includes(auth.currentUser.uid + item.id) ||
+                          Friend.includes(item.id + auth.currentUser.uid) ? (
                             <Button
                                 size="small"
                                 variant="contained"
                                 color="success"
                             >
                                 friend
+                            </Button>
+                        ) : block.includes(auth.currentUser.uid + item.id) ||
+                          block.includes(item.id + auth.currentUser.uid) ? (
+                            <Button
+                                size="small"
+                                variant="contained"
+                                color="error"
+                            >
+                                block
                             </Button>
                         ) : (
                             <Button
