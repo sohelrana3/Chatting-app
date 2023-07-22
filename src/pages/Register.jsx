@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // firebase
 import {
     getAuth,
@@ -15,6 +15,7 @@ import images from "../assets/Register.png";
 // components
 import RegisterHeadding from "../components/RegisterHeadding";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 let inishalvalue = {
     email: "",
@@ -28,6 +29,13 @@ const Register = () => {
     const db = getDatabase();
     let [value, setvalue] = useState(inishalvalue);
     let navigate = useNavigate();
+    let users = useSelector((state) => state.loggedUser.LoginUser);
+
+    // useEffect(()=>{
+    //     if(users !== null){
+    //         navigate("/bachal/home")
+    //     }
+    // },[])
 
     //handlevalus
     let handlevalus = (e) => {
@@ -35,6 +43,8 @@ const Register = () => {
             ...value,
             [e.target.name]: e.target.value,
         });
+
+       
     };
     //handlesubmit
     let handlesubmit = () => {
@@ -76,11 +86,11 @@ const Register = () => {
                     // Email verification sent!
                     console.log("Email verification sent!");
                     console.log(user);
-                    set(ref(db, 'users/' + user.user.uid), {
+                    set(ref(db, "users/" + user.user.uid), {
                         username: value.name,
                         email: value.email,
-                        profile_picture : user.user.photoURL
-                      });
+                        profile_picture: user.user.photoURL,
+                    });
                 });
                 navigate("/login");
                 setvalue({
@@ -93,6 +103,7 @@ const Register = () => {
             });
         });
     };
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -142,6 +153,7 @@ const Register = () => {
                             value={value.password}
                             name="password"
                             onChange={handlevalus}
+                       
                         />
                         {value.error.includes("password") && (
                             <div className="regalert">

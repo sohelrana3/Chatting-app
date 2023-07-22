@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     getAuth,
     signInWithEmailAndPassword,
@@ -31,6 +31,14 @@ const Login = () => {
     let dispatch = useDispatch();
     const provider = new GoogleAuthProvider();
     let [value, setvalue] = useState(inishalvalue);
+    let users = useSelector((state) => state.loggedUser.LoginUser);
+
+
+    // useEffect(()=>{
+    //     if(users !== null){
+    //         navigate("/bachal/home")
+    //     }
+    // },[])
 
     //handlevalues
     let handlevalues = (e) => {
@@ -81,6 +89,11 @@ const Login = () => {
 
         });
     };
+
+    ///
+    // let handlekey = (e) => {
+       
+    // } 
 
     return (
         <Grid container spacing={2}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Group from "../components/Group";
 import FriendRequest from "../components/FriendRequest";
@@ -8,6 +8,7 @@ import UserList from "../components/UserList";
 import BlockUser from "../components/BlockUser";
 
 const Home = () => {
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={4}>

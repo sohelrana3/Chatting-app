@@ -7,24 +7,25 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsChatDots } from "react-icons/bs";
 import { BiLogIn } from "react-icons/bi";
 import profile from "../assets/login.png";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 
 const RootLayouts = () => {
     const auth = getAuth();
     const location = useLocation();
     const navigate = useNavigate();
-    let loggin = useSelector((state)=> state.loggedUser.LoginUser)
-    useEffect(()=>{
-        if(loggin == null){
-            navigate("/login")
+    let loggin = useSelector((state) => state.loggedUser.LoginUser);
+    useEffect(() => {
+        if (loggin == null) {
+            navigate("/login");
+            console.log("nall");
         }
-        console.log(loggin.displayName);
-    },[])
+    }, []);
     let habdleLogouts = () => {
         signOut(auth)
             .then(() => {
-                localStorage.removeItem("user")
-                navigate("/login")
+                localStorage.removeItem("user");
+                navigate("/login");
+                console.log("loggg");
             })
             .catch((error) => {
                 // An error happened.
@@ -37,7 +38,11 @@ const RootLayouts = () => {
                 <div className="navcontant">
                     <div className="navbar">
                         <img className="profile" src={profile} alt="Profile" />
-                        <h2 className="profileName">{loggin.displayName}</h2>
+                        {loggin !== null && (
+                            <h2 className="profileName">
+                                {loggin.displayName}
+                            </h2>
+                        )}
                         <ul>
                             <li>
                                 <Link to="/bachal/home">
