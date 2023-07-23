@@ -17,7 +17,6 @@ const RootLayouts = () => {
     useEffect(() => {
         if (loggin == null) {
             navigate("/login");
-            console.log("nall");
         }
     }, []);
     let habdleLogouts = () => {

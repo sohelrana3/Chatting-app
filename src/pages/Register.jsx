@@ -16,6 +16,7 @@ import images from "../assets/Register.png";
 import RegisterHeadding from "../components/RegisterHeadding";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 let inishalvalue = {
     email: "",
@@ -23,6 +24,7 @@ let inishalvalue = {
     password: "",
     error: "",
     loadding: true,
+    eye: false,
 };
 const Register = () => {
     const auth = getAuth();
@@ -149,12 +151,24 @@ const Register = () => {
                             id="outlined-basic"
                             label="Password"
                             variant="outlined"
-                            type="password"
+                            type={value.eye ? "text" : "password"}
                             value={value.password}
                             name="password"
                             onChange={handlevalus}
                        
                         />
+                        <div
+                            onClick={() =>
+                                setvalue({ ...value, eye: !value.eye })
+                            }
+                            className="eye_reg"
+                        >
+                            {value.eye ? (
+                                <AiOutlineEye />
+                            ) : (
+                                <AiOutlineEyeInvisible />
+                            )}
+                        </div>
                         {value.error.includes("password") && (
                             <div className="regalert">
                                 <Alert severity="error">{value.error}</Alert>

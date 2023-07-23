@@ -16,6 +16,8 @@ import { Link, useNavigate } from "react-router-dom";
 // react-redux
 import { useSelector, useDispatch } from "react-redux";
 import { userdata } from "../slice/user/userSlice";
+import { toast } from "react-toastify";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 //
 let inishalvalue = {
@@ -23,6 +25,7 @@ let inishalvalue = {
     password: "",
     error: "",
     errorpass: "",
+    eye: false,
 };
 
 const Login = () => {
@@ -33,12 +36,21 @@ const Login = () => {
     let [value, setvalue] = useState(inishalvalue);
     let users = useSelector((state) => state.loggedUser.LoginUser);
 
+    //const notify ;
+    const notify = (massges) => toast(massges);
 
-    // useEffect(()=>{
-    //     if(users !== null){
-    //         navigate("/bachal/home")
-    //     }
-    // },[])
+    useEffect(() => {
+        // if(users !== null){
+        //     navigate("/bachal/home")
+        // }
+
+        // if(localStorage.user == user){
+        //     console.log("nnn");
+        //     navigate("/bachal/home")
+        // }
+
+        console.log(localStorage);
+    }, []);
 
     //handlevalues
     let handlevalues = (e) => {
@@ -73,27 +85,24 @@ const Login = () => {
                 });
                 localStorage.setItem("user", JSON.stringify(user.user));
                 dispatch(userdata(user.user));
+                notify("login success");
                 navigate("/bachal/home");
-        
             })
             .catch((error) => {
                 setvalue({
                     error: "email or password not march",
                 });
-
             });
     };
     //handleGoogle
     let handleGoogle = () => {
-        signInWithPopup(auth, provider).then((result) => {
-
-        });
+        signInWithPopup(auth, provider).then((result) => {});
     };
 
     ///
     // let handlekey = (e) => {
-       
-    // } 
+
+    // }
 
     return (
         <Grid container spacing={2}>
@@ -134,9 +143,21 @@ const Login = () => {
                             variant="standard"
                             name="password"
                             value={value.password}
-                            type="password"
+                            type={value.eye ? "text" : "password"}
                             onChange={handlevalues}
                         />
+                        <div
+                            onClick={() =>
+                                setvalue({ ...value, eye: !value.eye })
+                            }
+                            className="eye"
+                        >
+                            {value.eye ? (
+                                <AiOutlineEye />
+                            ) : (
+                                <AiOutlineEyeInvisible />
+                            )}
+                        </div>
                         {value.error.includes("password") && (
                             <div className="regalert">
                                 <Alert severity="error">{value.error}</Alert>

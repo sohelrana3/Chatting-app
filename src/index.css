@@ -34,6 +34,7 @@ ol {
 .regInput {
     width: 100%;
     margin-top: 56px;
+    position: relative;
 }
 .regInput .MuiTextField-root {
     width: 75%;
@@ -67,13 +68,18 @@ ol {
 .regload {
     color: #ffff;
 }
-
+.eye_reg{
+    position: absolute;
+    top: 20px;
+    right: 120px;
+}
 /* ----------------Login pages---------------- */
 .logingoogle {
     margin-top: 29px;
 }
 .loginInput {
     margin-top: 32px;
+    position: relative;
 }
 .loginInput .MuiTextField-root {
     width: 75%;
@@ -98,6 +104,11 @@ ol {
 }
 .forbutton{
     margin-top: 20px;
+}
+.eye{
+ position: absolute;
+ top: 25px;
+ right: 110px;
 }
 /* ----------------Rootlayouts pages---------------- */
 .profileName{
