@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 import { getDatabase, ref, set, push, onValue } from "firebase/database";
+import { toast } from "react-toastify";
 
 // Modal style
 const style = {
@@ -32,6 +33,8 @@ const Group = () => {
     const handleClose = () => setOpen(false);
     let [groupinfo, setgroupinfo] = useState(grupData);
     let [group, setgroup] = useState([]);
+    //const notify ;
+    const notify = (massges) => toast(massges);
 
     // useSelector
     let users = useSelector((state) => state.loggedUser.LoginUser);
@@ -70,6 +73,7 @@ const Group = () => {
             adminname: users.displayName,
         }).then(() => {
             setOpen(false);
+            notify("Group name:" + " " + groupinfo.groupname)
         });
     };
     return (
